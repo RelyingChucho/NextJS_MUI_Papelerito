@@ -34,7 +34,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <StyledEngineProvider injectFirst>
-          <InitColorSchemeScript attribute="class" />
+          <InitColorSchemeScript attribute="data-toolpad-color-scheme" />
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <CssBaseline /> {children}

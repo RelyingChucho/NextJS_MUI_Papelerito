@@ -19,6 +19,6 @@ export default {
     preflight: false, // Mantenemos desactivado el reset de Tailwind
   },
   plugins: [],
-  darkMode: "class",
+  darkMode: ["class", '[data-toolpad-color-scheme="dark"]'],
   important: true, // Cambiamos a true en lugar de "#__next"
 } satisfies Config;
