@@ -1,33 +1,41 @@
 "use client";
 
+import { IconButton, Tooltip } from "@mui/material";
 import { useColorScheme } from "@mui/material/styles";
-import RadioGroup from "@mui/material/RadioGroup";
-import Radio from "@mui/material/Radio";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
+import NightsStayRoundedIcon from "@mui/icons-material/NightsStayRounded";
+import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 
 export default function ThemeToggle() {
   const { mode, setMode } = useColorScheme();
-  if (!mode) {
-    return null;
-  }
+
   return (
-    <FormControl>
-      <FormLabel id="demo-theme-toggle">Theme</FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-theme-toggle"
-        name="theme-toggle"
-        row
-        value={mode}
-        onChange={(event) =>
-          setMode(event.target.value as "system" | "light" | "dark")
-        }
+    <Tooltip title="Cambiar de Tema" placement="bottom">
+      <IconButton
+        onClick={() => {
+          setMode(mode === "dark" ? "light" : "dark");
+        }}
+        sx={{
+          color: (theme) =>
+            theme.palette.mode === "dark" ? "white" : "#F2884B",
+          fontWeight: "bold",
+          ":hover": {
+            transform: "scale(1.2)",
+            transition: "transform 0.25s ease-out",
+          },
+        }}
       >
-        <FormControlLabel value="system" control={<Radio />} label="System" />
-        <FormControlLabel value="light" control={<Radio />} label="Light" />
-        <FormControlLabel value="dark" control={<Radio />} label="Dark" />
-      </RadioGroup>
-    </FormControl>
+        {mode === "dark" ? (
+          <LightModeRoundedIcon />
+        ) : (
+          <NightsStayRoundedIcon
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "dark" ? "white" : "#F2884B",
+              fontWeight: "bold",
+            }}
+          />
+        )}
+      </IconButton>
+    </Tooltip>
   );
 }
