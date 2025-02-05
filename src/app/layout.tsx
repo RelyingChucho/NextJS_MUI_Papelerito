@@ -4,6 +4,8 @@ import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import { StyledEngineProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../theme";
 
 const geistSans = Geist({
@@ -31,10 +33,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <InitColorSchemeScript attribute="class" />
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        </AppRouterCacheProvider>
+        <StyledEngineProvider injectFirst>
+          <InitColorSchemeScript attribute="class" />
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline /> {children}
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </StyledEngineProvider>
       </body>
     </html>
   );
