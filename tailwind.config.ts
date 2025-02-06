@@ -13,6 +13,11 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        lora: "var(--font-lora)",
+        likeBaskerville: "var(--font-like_baskerville)",
+        cormorantGaramond: "var(--font-cormorant_garamond)",
+      },
     },
   },
   corePlugins: {
