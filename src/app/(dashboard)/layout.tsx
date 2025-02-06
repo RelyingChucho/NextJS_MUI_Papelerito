@@ -11,7 +11,7 @@ export default function DashboardPagesLayout(props: {
   return (
     <NextAppProvider navigation={NAVIGATION}>
       <DashboardLayout slots={{ toolbarActions: ThemeToggle }}>
-        <PageContainer>{props.children}</PageContainer>
+        <div className="p-5 h-full w-full">{props.children}</div>
       </DashboardLayout>
     </NextAppProvider>
   );
