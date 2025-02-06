@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model categorias {
+  id_categoria Int         @id @default(autoincrement())
+  nombre       String      @unique(map: "nombre") @db.VarChar(50)
+  atributos    Json
+  productos    productos[]
+}
+
+model marcas {
+  id_marca  Int         @id @default(autoincrement())
+  nombre    String      @unique(map: "nombre") @db.VarChar(50)
+  variantes variantes[]
+}
+
+model productos {
+  id_producto  Int         @id @default(autoincrement())
+  nombre       String      @db.VarChar(100)
+  descripcion  String?     @db.Text
+  id_categoria Int
+  categorias   categorias  @relation(fields: [id_categoria], references: [id_categoria], onDelete: NoAction, onUpdate: NoAction, map: "productos_ibfk_1")
+  variantes    variantes[]
+
+  @@index([id_categoria], map: "id_categoria")
+}
+
+model variantes {
+  id_variante  Int       @id @default(autoincrement())
+  id_producto  Int
+  id_marca     Int?
+  atributos    Json
+  stock        Int       @default(0)
+  precio_venta Decimal   @db.Decimal(10, 2)
+  productos    productos @relation(fields: [id_producto], references: [id_producto], onDelete: NoAction, onUpdate: NoAction, map: "variantes_ibfk_1")
+  marcas       marcas?   @relation(fields: [id_marca], references: [id_marca], onDelete: NoAction, onUpdate: NoAction, map: "variantes_ibfk_2")
+
+  @@index([id_marca], map: "id_marca")
+  @@index([id_producto], map: "id_producto")
+}
