@@ -14,25 +14,15 @@ export default function ThemeToggle() {
         onClick={() => {
           setMode(mode === "dark" ? "light" : "dark");
         }}
-        sx={{
-          color: (theme) =>
-            theme.palette.mode === "dark" ? "white" : "#F2884B",
-          fontWeight: "bold",
-          ":hover": {
-            transform: "scale(1.2)",
-            transition: "transform 0.25s ease-out",
-          },
-        }}
+        className="hover:scale-125 font-bold transition-transform ease-in-out duration-300"
+        size="large"
       >
         {mode === "dark" ? (
-          <LightModeRoundedIcon />
+          <LightModeRoundedIcon fontSize="large" />
         ) : (
           <NightsStayRoundedIcon
-            sx={{
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "white" : "#F2884B",
-              fontWeight: "bold",
-            }}
+            fontSize="large"
+            className="font-bold text-[#F2884B] dark:text-white"
           />
         )}
       </IconButton>
