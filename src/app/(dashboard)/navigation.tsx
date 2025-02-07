@@ -3,11 +3,17 @@ import { type Navigation } from "@toolpad/core/AppProvider";
 import { Category, AddCategory, ListSearch, ListAdd } from "@/icons";
 import StoreRoundedIcon from "@mui/icons-material/StoreRounded";
 import AddBusinessRoundedIcon from "@mui/icons-material/AddBusinessRounded";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 
 export const NAVIGATION: Navigation = [
   {
     kind: "header",
     title: "Menú",
+  },
+  {
+    segment: "",
+    title: "Inicio",
+    icon: <HomeRoundedIcon />,
   },
   {
     segment: "Categorias",
