@@ -22,7 +22,7 @@ export default function ThemeToggle() {
         ) : (
           <NightsStayRoundedIcon
             fontSize="large"
-            className="font-bold text-[#F2884B] dark:text-white"
+            className="font-bold text-teal-600 dark:text-blancoPrincipal"
           />
         )}
       </IconButton>
