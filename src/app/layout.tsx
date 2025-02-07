@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   title: "El Gran Papelerito",
   description: "Aplicacion para controlar el Inventario de la papeleria",
   authors: [{ name: "Jesus Alberto Martinez Santos" }],
+  icons: "/papeleria.ico",
 };
 
 export default function RootLayout({
