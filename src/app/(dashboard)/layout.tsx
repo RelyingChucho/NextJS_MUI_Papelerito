@@ -16,13 +16,13 @@ export default function DashboardPagesLayout(props: {
         logo: <img src="/papeleria.gif" />,
         homeUrl: "/",
         title: (
-          <Typography className="text-red-600 dark:text-white font-cormorantGaramond text-2xl">
+          <Typography className="text-teal-600 dark:text-white font-cormorantGaramond text-xl sm:text-2xl md:text-3xl font-bold">
             EL GRAN PAPELERITO
           </Typography>
         ),
       }}
     >
-      <DashboardLayout slots={{ toolbarActions: ThemeToggle }}>
+      <DashboardLayout slots={{ toolbarActions: ThemeToggle }} sidebarExpandedWidth={275} >
         <div className="p-5 h-full w-full">{props.children}</div>
       </DashboardLayout>
     </NextAppProvider>
