@@ -16,16 +16,19 @@ export const NAVIGATION: Navigation = [
     icon: <HomeRoundedIcon />,
   },
   {
+    kind: "page",
     segment: "Categorias",
     title: "Categorias",
     icon: <Category />,
     children: [
       {
+        kind: "page",
         segment: "Registrar",
         title: "Registrar Categoria",
         icon: <AddCategory />,
       },
       {
+        kind: "page",
         segment: "",
         title: "Consultar Categorias",
         icon: <ListSearch />,
@@ -33,29 +36,39 @@ export const NAVIGATION: Navigation = [
     ],
   },
   {
+    kind: "page",
     segment: "Marcas",
     title: "Marcas",
     icon: <StoreRoundedIcon />,
     children: [
       {
+        kind: "page",
         segment: "Registrar",
         title: "Registrar Marca",
         icon: <AddBusinessRoundedIcon />,
       },
-      { segment: "", title: "Consultar Marcas", icon: <ListSearch /> },
+      {
+        kind: "page",
+        segment: "",
+        title: "Consultar Marcas",
+        icon: <ListSearch />,
+      },
     ],
   },
   {
+    kind: "page",
     segment: "Productos",
     title: "Productos",
     icon: <CategoryRoundedIcon />,
     children: [
       {
+        kind: "page",
         segment: "Registrar",
         title: "Registrar Productos",
         icon: <ListAdd />,
       },
       {
+        kind: "page",
         segment: "",
         title: "Consultar Productos",
         icon: <ListSearch />,
