@@ -22,10 +22,7 @@ interface ReusableTableProps<T> {
   data: T[];
 }
 
-export function VirtualizedTable<T>({
-  columns,
-  data,
-}: ReusableTableProps<T>) {
+export function VirtualizedTable<T>({ columns, data }: ReusableTableProps<T>) {
   const ScrollerComponent = React.forwardRef<HTMLDivElement>((props, ref) => (
     <TableContainer component={Paper} {...props} ref={ref} />
   ));
@@ -44,10 +41,7 @@ export function VirtualizedTable<T>({
   const VirtuosoTableComponents: TableComponents<T> = {
     Scroller: ScrollerComponent,
     Table: (props) => (
-      <Table
-        {...props}
-        sx={{ borderCollapse: "separate", tableLayout: "fixed" }}
-      />
+      <Table {...props} className="border-separate table-fixed" />
     ),
     TableHead: TableHeadComponent,
     TableRow: TableRow,
@@ -62,8 +56,7 @@ export function VirtualizedTable<T>({
           variant="head"
           align={column.numeric ? "right" : "left"}
           style={{ width: column.width }}
-          sx={{ backgroundColor: "background.paper" }}
-          className="bg-teal-600"
+          className={`font-likeBaskerville text-base font-bold bg-teal-600 text-white uppercase`}
         >
           {column.label}
         </TableCell>
@@ -77,6 +70,7 @@ export function VirtualizedTable<T>({
         <TableCell
           key={column.dataKey.toString()}
           align={column.numeric ? "right" : "left"}
+          className="font-likeBaskerville"
         >
           {row[column.dataKey] as React.ReactNode}
         </TableCell>
