@@ -27,7 +27,6 @@ const categoriasColumns: ColumnData<Categorias>[] = [
   },
 ];
 
-
 export default async function Page() {
   const data = await fetch("http://192.168.100.241:3000/api/Categorias");
 
