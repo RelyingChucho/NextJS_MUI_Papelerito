@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 interface Categorias {
   id: number;
   nombre: string;
-  atributos: string; // Convertiremos la cadena en un arreglo
+  atributos: string; // Convertiremos la cadena en un arreglo (o lo dejamos como string si así lo deseas)
 }
 
 // Interfaz para la respuesta del API
@@ -38,14 +38,15 @@ const categoriasColumns: ColumnData<Categorias>[] = [
 
 // Define los props que recibe la página
 interface PageProps {
-  searchParams:
-    | { [key: string]: string | string[] | undefined }
-    | Promise<{ [key: string]: string | string[] | undefined }>;
+  // Nota: Next.js espera que searchParams sea un Promise (o undefined)
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 // Componente de página asíncrono (Server Component)
 export default async function Page({ searchParams }: PageProps) {
-  const resolvedSearchParams = await Promise.resolve(searchParams);
+  // Al ser searchParams un Promise, lo resolvemos:
+  const resolvedSearchParams = await searchParams;
+  
   const baseURL = "http://192.168.100.241:3000/api/Categorias";
 
   // Construye los parámetros de búsqueda
@@ -78,7 +79,7 @@ export default async function Page({ searchParams }: PageProps) {
     responseData.categoriasFormateadas.map((item) => ({
       id: item.id,
       nombre: item.nombre,
-      // Separamos la cadena de atributos por comas y eliminamos espacios adicionales
+      // En este ejemplo dejamos la cadena sin transformar, pero aquí podrías separar la cadena en arreglo si lo requieres.
       atributos: item.atributos,
     }));
 
@@ -93,7 +94,7 @@ export default async function Page({ searchParams }: PageProps) {
           total={responseData.totalCategorias}
           label="Total de Categorias: "
         />
-        <p>Aqui va la paginacion 1 2 3 4 5 ... 1</p>
+        <p>Aquí va la paginación 1 2 3 4 5 ... 1</p>
         <DeleteParams />
       </div>
     </div>
