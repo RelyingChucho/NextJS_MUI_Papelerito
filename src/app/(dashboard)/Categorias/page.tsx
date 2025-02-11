@@ -83,12 +83,12 @@ export default async function Page({ searchParams }: PageProps) {
     }));
 
   return (
-    <div className="h-full w-full flex flex-col">
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <VirtualizedTable<Categorias>
         columns={categoriasColumns}
         data={formattedCategorias}
       />
-      <div className="w-full flex flex-wrap justify-around">
+      <div className="w-full flex flex-wrap justify-around items-center">
         <Total
           total={responseData.totalCategorias}
           label="Total de Categorias: "
