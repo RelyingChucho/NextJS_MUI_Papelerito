@@ -17,10 +17,18 @@ export default function DashboardPagesLayout(props: {
       <NextAppProvider
         navigation={NAVIGATION}
         branding={{
-          logo: <Image src="/papeleria.gif" alt="" width={40} height={40} unoptimized/>,
+          logo: (
+            <Image
+              src="/papeleria.gif"
+              alt=""
+              width={40}
+              height={40}
+              unoptimized
+            />
+          ),
           homeUrl: "/",
           title: (
-            <Typography className="text-teal-600 dark:text-white font-cormorantGaramond text-xl sm:text-2xl md:text-3xl font-bold">
+            <Typography className="text-teal-600 dark:text-white font-cormorantGaramond text-lg sm:text-2xl md:text-3xl font-bold">
               EL GRAN PAPELERITO
             </Typography>
           ) as unknown as string,
