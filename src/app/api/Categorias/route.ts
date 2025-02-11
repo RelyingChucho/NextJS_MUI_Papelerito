@@ -15,8 +15,19 @@ export async function GET(request: Request) {
       };
     }
 
+    const orderClause: Prisma.categoriasOrderByWithRelationInput[] = [];
+
+    // Ordenar por "nombre"
+    if (searchParams.has("ordenNombre")) {
+      const ordenNombre = searchParams.get("ordenNombre");
+      if (ordenNombre === "asc" || ordenNombre === "desc") {
+        orderClause.push({ nombre: ordenNombre });
+      }
+    }
+
     const categorias = await prisma.categorias.findMany({
       where: whereClause,
+      ...(orderClause.length > 0 && { orderBy: orderClause }),
     });
 
     // Formatear los atributos
