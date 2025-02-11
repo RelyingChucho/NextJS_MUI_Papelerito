@@ -3,8 +3,8 @@ import CustomSelect, { Option } from "@/components/OrdenarPor";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const ordenarOptions: Option[] = [
-    { value: "asc", label: "Ascendente", param: "ordenNombre" },
-    { value: "desc", label: "Descendente", param: "ordenNombre" },
+    { value: "asc", label: "Nombre: A-Z", param: "ordenNombre" },
+    { value: "desc", label: "Nombre: Z-A", param: "ordenNombre" },
   ];
   return (
     <>
@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             param
             paramName="nombre"
           />
-          <CustomSelect options={ordenarOptions} label="Ordenar Por" param />
+          <CustomSelect options={ordenarOptions} label="Ordenar Por:" param />
         </div>
         <div className="h-full w-full">{children}</div>
       </div>
