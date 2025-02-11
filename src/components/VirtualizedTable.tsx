@@ -54,9 +54,9 @@ export function VirtualizedTable<T>({ columns, data }: ReusableTableProps<T>) {
         <TableCell
           key={column.dataKey.toString()}
           variant="head"
-          align={column.numeric ? "right" : "left"}
+          align="center"
           style={{ width: column.width }}
-          className={`font-likeBaskerville text-base font-bold bg-teal-600 text-white uppercase`}
+          className={`font-likeBaskerville text-base font-bold bg-teal-600 text-white uppercase `}
         >
           {column.label}
         </TableCell>
@@ -69,7 +69,7 @@ export function VirtualizedTable<T>({ columns, data }: ReusableTableProps<T>) {
       {columns.map((column) => (
         <TableCell
           key={column.dataKey.toString()}
-          align={column.numeric ? "right" : "left"}
+          align="center"
           className="font-likeBaskerville"
         >
           {row[column.dataKey] as React.ReactNode}
