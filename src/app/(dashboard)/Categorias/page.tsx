@@ -39,19 +39,31 @@ interface PageProps {
 
 // Componente de página asíncrono (Server Component)
 export default async function Page({ searchParams }: PageProps) {
-  // Asegúrate de esperar (await) a searchParams para obtener el objeto real.
   const resolvedSearchParams = await Promise.resolve(searchParams);
-
   const baseURL = "http://192.168.100.241:3000/api/Categorias";
 
-  // Extrae el parámetro `nombre` de la URL (si existe)
-  const nombre = resolvedSearchParams?.nombre ?? "";
-  const query = nombre ? `?nombre=${nombre}` : "";
-  const url = baseURL + query;
+  // Construye los parámetros de búsqueda
+  const params = new URLSearchParams();
+  if (resolvedSearchParams?.nombre) {
+    params.append("nombre", resolvedSearchParams.nombre as string);
+  }
+  if (resolvedSearchParams?.ordenNombre) {
+    params.append("ordenNombre", resolvedSearchParams.ordenNombre as string);
+  }
 
-  // Realiza el fetch en el servidor.
-  // Con { cache: "no-store" } aseguras que la data se actualice en cada petición.
+  // Arma la URL final
+  const url = params.toString() ? `${baseURL}?${params.toString()}` : baseURL;
+  console.log("Fetch URL:", url);
+
+  // Realiza el fetch con cache "no-store"
   const response = await fetch(url, { cache: "no-store" });
+
+  // Opcional: Verifica que el response esté bien
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Error en la petición: ${response.status} - ${errorText}`);
+  }
+
   const categorias: Categorias[] = await response.json();
 
   return (
