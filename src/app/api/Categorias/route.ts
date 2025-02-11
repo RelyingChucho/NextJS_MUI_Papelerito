@@ -30,6 +30,10 @@ export async function GET(request: Request) {
       ...(orderClause.length > 0 && { orderBy: orderClause }),
     });
 
+    const totalCategorias = await prisma.categorias.count({
+      where: whereClause,
+    });
+
     // Formatear los atributos
     const categoriasFormateadas = categorias.map((categoria) => ({
       ...categoria,
@@ -38,7 +42,7 @@ export async function GET(request: Request) {
         : "",
     }));
 
-    return NextResponse.json(categoriasFormateadas);
+    return NextResponse.json({ categoriasFormateadas, totalCategorias });
   } catch (error) {
     console.error("Error en GET /api/search/categoria:", error);
     return NextResponse.json(
