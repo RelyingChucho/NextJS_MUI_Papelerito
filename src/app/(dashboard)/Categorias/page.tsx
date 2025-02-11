@@ -1,4 +1,5 @@
 // src/app/(dashboard)/Categorias/page.tsx
+import DeleteParams from "@/components/DeleteParams";
 import Total from "@/components/Total";
 import { ColumnData, VirtualizedTable } from "@/components/VirtualizedTable";
 import { Metadata } from "next";
@@ -10,18 +11,14 @@ export const metadata: Metadata = {
 
 // La interfaz que usará tu tabla
 interface Categorias {
-  id: string;
+  id: number;
   nombre: string;
-  atributos: string[]; // Convertiremos la cadena en un arreglo
+  atributos: string; // Convertiremos la cadena en un arreglo
 }
 
 // Interfaz para la respuesta del API
 interface CategoriasApiResponse {
-  categoriasFormateadas: {
-    id_categoria: number;
-    nombre: string;
-    atributos: string; // Cadena con valores separados por comas
-  }[];
+  categoriasFormateadas: Categorias[];
   totalCategorias: number;
 }
 
@@ -79,10 +76,10 @@ export default async function Page({ searchParams }: PageProps) {
   // Transforma cada categoría para que se adapte a la interfaz Categorias
   const formattedCategorias: Categorias[] =
     responseData.categoriasFormateadas.map((item) => ({
-      id: item.id_categoria.toString(),
+      id: item.id,
       nombre: item.nombre,
       // Separamos la cadena de atributos por comas y eliminamos espacios adicionales
-      atributos: item.atributos.split(",").map((atributo) => atributo.trim()),
+      atributos: item.atributos,
     }));
 
   return (
@@ -91,11 +88,13 @@ export default async function Page({ searchParams }: PageProps) {
         columns={categoriasColumns}
         data={formattedCategorias}
       />
-      <div className="w-full flex flex-wrap">
+      <div className="w-full flex flex-wrap justify-around">
         <Total
           total={responseData.totalCategorias}
           label="Total de Categorias: "
         />
+        <p>Aqui va la paginacion 1 2 3 4 5 ... 1</p>
+        <DeleteParams />
       </div>
     </div>
   );
