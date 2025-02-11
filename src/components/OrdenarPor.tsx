@@ -6,12 +6,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useRouter } from "next/navigation";
+import { useColorScheme } from "@mui/material";
 
 // Define el tipo para cada opción del select
 export type Option = {
   value: string | number;
   label: string;
-  /** 
+  /**
    * Propiedad que se usará como clave del search param cuando se seleccione esta opción.
    */
   param: string;
@@ -59,7 +60,9 @@ export default function CustomSelect({
     // Si se ha pasado el prop "param", actualizamos el search param en la URL.
     if (param) {
       // Buscamos la opción seleccionada para obtener su propiedad "param"
-      const selectedOption = options.find((option) => option.value === newValue);
+      const selectedOption = options.find(
+        (option) => option.value === newValue
+      );
       if (selectedOption) {
         const key = selectedOption.param;
         const currentUrl = new URL(window.location.href);
@@ -72,28 +75,30 @@ export default function CustomSelect({
     }
   };
 
+  const { mode } = useColorScheme();
+
   return (
     <FormControl
       className="w-64"
       sx={{
         "& label": {
-          color: "#0d9488",
+          color: mode === "dark" ? "#FFFFFF" : "#0d9488",
         },
         "& label.Mui-focused": {
-          color: "#0d9488",
+          color: mode === "dark" ? "#FFFFFF" : "#0d9488",
         },
         "& .MuiInput-underline:after": {
-          borderBottomColor: "#0d9488",
+          borderBottomColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
         },
         "& .MuiOutlinedInput-root": {
           "& fieldset": {
-            borderColor: "#0d9488",
+            borderColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
           },
           "&:hover fieldset": {
-            borderColor: "#0d9488",
+            borderColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
           },
           "&.Mui-focused fieldset": {
-            borderColor: "#0d9488",
+            borderColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
           },
         },
         ...formControlSx,

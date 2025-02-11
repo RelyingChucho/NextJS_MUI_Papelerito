@@ -3,30 +3,7 @@
 import { TextField, TextFieldProps } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
-
-const diseño = {
-  "& label.Mui-focused": {
-    color: "#0d9488",
-  },
-  "& label": {
-    color: "#0d9488",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#0d9488",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "#0d9488",
-    },
-    "&:hover fieldset": {
-      borderColor: "#0d9488",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#0d9488",
-    },
-  },
-  caretColor: "#0d9488",
-};
+import { useColorScheme } from "@mui/material/styles";
 
 type InputProps = TextFieldProps & {
   paramName?: string;
@@ -42,6 +19,7 @@ export default function Input({
   const searchParams = useSearchParams();
   const [value, setValue] = useState("");
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+  const { mode } = useColorScheme();
 
   // Obtener valor inicial de los searchParams
   useEffect(() => {
@@ -75,6 +53,33 @@ export default function Input({
   };
 
   return (
-    <TextField {...props} value={value} onChange={handleChange} sx={diseño} />
+    <TextField
+      {...props}
+      value={value}
+      onChange={handleChange}
+      sx={{
+        "& label.Mui-focused": {
+          color: mode === "dark" ? "#FFFFFF" : "#0d9488",
+        },
+        "& label": {
+          color: mode === "dark" ? "#FFFFFF" : "#0d9488",
+        },
+        "& .MuiInput-underline:after": {
+          borderBottomColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
+        },
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
+          },
+          "&:hover fieldset": {
+            borderColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
+          },
+        },
+        caretColor: mode === "dark" ? "#FFFFFF" : "#0d9488",
+      }}
+    />
   );
 }
