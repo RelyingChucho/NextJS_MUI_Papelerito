@@ -1,4 +1,6 @@
+// src/app/(dashboard)/Categorias/page.tsx
 import { ColumnData, VirtualizedTable } from "@/components/VirtualizedTable";
+
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,14 +8,14 @@ export const metadata: Metadata = {
   description: "En esta parte se Consultan las Categorias",
 };
 
-// 1. Define tu tipo de datos
+// Define el tipo de datos
 interface Categorias {
   id: string;
   nombre: string;
   atributos: string[];
 }
 
-// 2. Define las columnas
+// Define las columnas
 const categoriasColumns: ColumnData<Categorias>[] = [
   {
     dataKey: "nombre",
@@ -27,12 +29,30 @@ const categoriasColumns: ColumnData<Categorias>[] = [
   },
 ];
 
-export default async function Page() {
-  const data = await fetch("http://192.168.100.241:3000/api/Categorias");
+// Define los props que recibe la página.
+// Nota: Puede que `searchParams` venga como objeto o como promesa.
+interface PageProps {
+  searchParams:
+    | { [key: string]: string | string[] | undefined }
+    | Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
-  const categorias: Categorias[] = await data.json();
+// Componente de página asíncrono (Server Component)
+export default async function Page({ searchParams }: PageProps) {
+  // Asegúrate de esperar (await) a searchParams para obtener el objeto real.
+  const resolvedSearchParams = await Promise.resolve(searchParams);
 
-  console.log(categorias);
+  const baseURL = "http://192.168.100.241:3000/api/Categorias";
+
+  // Extrae el parámetro `nombre` de la URL (si existe)
+  const nombre = resolvedSearchParams?.nombre ?? "";
+  const query = nombre ? `?nombre=${nombre}` : "";
+  const url = baseURL + query;
+
+  // Realiza el fetch en el servidor.
+  // Con { cache: "no-store" } aseguras que la data se actualice en cada petición.
+  const response = await fetch(url, { cache: "no-store" });
+  const categorias: Categorias[] = await response.json();
 
   return (
     <VirtualizedTable<Categorias>
