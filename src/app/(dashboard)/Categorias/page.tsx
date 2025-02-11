@@ -1,6 +1,6 @@
 // src/app/(dashboard)/Categorias/page.tsx
+import Total from "@/components/Total";
 import { ColumnData, VirtualizedTable } from "@/components/VirtualizedTable";
-
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,14 +8,24 @@ export const metadata: Metadata = {
   description: "En esta parte se Consultan las Categorias",
 };
 
-// Define el tipo de datos
+// La interfaz que usará tu tabla
 interface Categorias {
   id: string;
   nombre: string;
-  atributos: string[];
+  atributos: string[]; // Convertiremos la cadena en un arreglo
 }
 
-// Define las columnas
+// Interfaz para la respuesta del API
+interface CategoriasApiResponse {
+  categoriasFormateadas: {
+    id_categoria: number;
+    nombre: string;
+    atributos: string; // Cadena con valores separados por comas
+  }[];
+  totalCategorias: number;
+}
+
+// Define las columnas para la tabla
 const categoriasColumns: ColumnData<Categorias>[] = [
   {
     dataKey: "nombre",
@@ -29,8 +39,7 @@ const categoriasColumns: ColumnData<Categorias>[] = [
   },
 ];
 
-// Define los props que recibe la página.
-// Nota: Puede que `searchParams` venga como objeto o como promesa.
+// Define los props que recibe la página
 interface PageProps {
   searchParams:
     | { [key: string]: string | string[] | undefined }
@@ -58,18 +67,36 @@ export default async function Page({ searchParams }: PageProps) {
   // Realiza el fetch con cache "no-store"
   const response = await fetch(url, { cache: "no-store" });
 
-  // Opcional: Verifica que el response esté bien
+  // Verifica que la respuesta sea correcta
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(`Error en la petición: ${response.status} - ${errorText}`);
   }
 
-  const categorias: Categorias[] = await response.json();
+  // Interpreta la respuesta como CategoriasApiResponse
+  const responseData: CategoriasApiResponse = await response.json();
+
+  // Transforma cada categoría para que se adapte a la interfaz Categorias
+  const formattedCategorias: Categorias[] =
+    responseData.categoriasFormateadas.map((item) => ({
+      id: item.id_categoria.toString(),
+      nombre: item.nombre,
+      // Separamos la cadena de atributos por comas y eliminamos espacios adicionales
+      atributos: item.atributos.split(",").map((atributo) => atributo.trim()),
+    }));
 
   return (
-    <VirtualizedTable<Categorias>
-      columns={categoriasColumns}
-      data={categorias}
-    />
+    <div className="h-full w-full flex flex-col">
+      <VirtualizedTable<Categorias>
+        columns={categoriasColumns}
+        data={formattedCategorias}
+      />
+      <div className="w-full flex flex-wrap">
+        <Total
+          total={responseData.totalCategorias}
+          label="Total de Categorias: "
+        />
+      </div>
+    </div>
   );
 }
