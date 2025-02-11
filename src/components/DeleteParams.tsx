@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { Button} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function DeleteParams() {
@@ -14,13 +14,6 @@ export default function DeleteParams() {
   };
 
   return (
-    // {/* <IconButton
-    //     aria-label="delete"
-    //     onClick={handleDeleteParams}
-    //     className="text-teal-600"
-    //   >
-    //     <DeleteIcon />
-    //   </IconButton> */}
     <Button
       variant="outlined"
       startIcon={<DeleteIcon />}
