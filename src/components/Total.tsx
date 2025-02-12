@@ -5,7 +5,7 @@ interface TotalProps {
 
 export default function Total({ total, label }: TotalProps) {
   return (
-    <p className="font-likeBaskerville">
+    <p className="font-libre-baskerville">
       {label} {total}
     </p>
   );

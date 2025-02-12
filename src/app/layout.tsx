@@ -9,18 +9,18 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../theme";
 
 const lora = Lora({
-  variable: "--font-lora",
+  variable: "--font-lora", // ✔️ Coincide con Tailwind
   subsets: ["latin"],
 });
 
-const likeBaskerville = Libre_Baskerville({
-  variable: "--font-like_baskerville",
+const libreBaskerville = Libre_Baskerville({
+  variable: "--font-libre-baskerville", // Usar guión en lugar de underscore
   subsets: ["latin"],
   weight: "400",
 });
 
 const cormorantGaramond = Cormorant_Garamond({
-  variable: "--font-cormorant_garamond",
+  variable: "--font-cormorant-garamond", // Usar guión en lugar de underscore
   subsets: ["latin"],
   weight: "400",
 });
@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${lora.variable} ${likeBaskerville.variable} ${cormorantGaramond.variable} antialiased`}
+        className={`${lora.variable} ${libreBaskerville.variable} ${cormorantGaramond.variable} antialiased`}
       >
         <StyledEngineProvider injectFirst>
           <InitColorSchemeScript attribute="data-toolpad-color-scheme" />

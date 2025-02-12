@@ -11,7 +11,7 @@ export default function Page() {
         <Slider
           defaultValue={30}
           className="text-teal-600 dark:text-red-600"
-          slotProps={{ thumb: { className: "rounded-sm" } }}
+          slotProps={{ thumb: { className: "rounded-xs" } }}
         />
       </div>
     </>

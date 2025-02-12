@@ -56,7 +56,7 @@ export function VirtualizedTable<T>({ columns, data }: ReusableTableProps<T>) {
           variant="head"
           align="center"
           style={{ width: column.width }}
-          className={`font-likeBaskerville text-base font-bold bg-teal-600 text-white uppercase `}
+          className={`font-libre-baskerville text-base font-bold bg-teal-600 text-white uppercase `}
         >
           {column.label}
         </TableCell>
@@ -70,7 +70,7 @@ export function VirtualizedTable<T>({ columns, data }: ReusableTableProps<T>) {
         <TableCell
           key={column.dataKey.toString()}
           align="center"
-          className="font-likeBaskerville"
+          className="font-libre-baskerville"
         >
           {row[column.dataKey] as React.ReactNode}
         </TableCell>

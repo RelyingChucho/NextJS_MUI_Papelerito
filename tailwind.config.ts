@@ -17,17 +17,8 @@ export default {
         oscuroPrincipal: "#252728",
         oscuroSecundario: "#1D1C1C",
       },
-      fontFamily: {
-        lora: "var(--font-lora)",
-        likeBaskerville: "var(--font-like_baskerville)",
-        cormorantGaramond: "var(--font-cormorant_garamond)",
-      },
     },
   },
-  corePlugins: {
-    preflight: false, // Mantenemos desactivado el reset de Tailwind
-  },
   plugins: [],
-  darkMode: ["class", '[data-toolpad-color-scheme="dark"]'],
   important: true, // Cambiamos a true en lugar de "#__next"
 } satisfies Config;

@@ -28,7 +28,7 @@ export default function DashboardPagesLayout(props: {
           ),
           homeUrl: "/",
           title: (
-            <Typography className="text-teal-600 dark:text-white font-cormorantGaramond text-lg sm:text-2xl md:text-3xl font-bold">
+            <Typography className="text-teal-600 dark:text-white font-cormorant-garamond text-lg sm:text-2xl md:text-3xl font-bold">
               EL GRAN PAPELERITO
             </Typography>
           ) as unknown as string,
