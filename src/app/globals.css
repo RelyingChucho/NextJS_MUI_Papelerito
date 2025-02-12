@@ -8,8 +8,6 @@
   --font-cormorant-garamond: "Cormorant_Garamond";
 }
 
-@source "./src/**/*.{js,ts,jsx,tsx,mdx}"
-
 @config '../../tailwind.config.ts';
 
 /*
