@@ -62,7 +62,9 @@ export default function DashboardPagesLayout(props: {
             },
           }}
         >
-          <div className="p-5 h-full w-full">{props.children}</div>
+          <div className="p-5 h-full w-full bg-[#F3F4F6] dark:bg-[#252728]">
+            {props.children}
+          </div>
         </DashboardLayout>
       </NextAppProvider>
     </Suspense>

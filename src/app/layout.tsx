@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${lora.variable} ${libreBaskerville.variable} ${cormorantGaramond.variable} antialiased`}
+        className={`${lora.variable} ${libreBaskerville.variable} ${cormorantGaramond.variable} antialiased [--mui-palette-background-paper:#FFFEFE] dark:[--mui-palette-background-paper:#1D1C1C]`}
       >
         <StyledEngineProvider injectFirst>
           <InitColorSchemeScript attribute="data-toolpad-color-scheme" />
