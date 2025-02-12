@@ -19,7 +19,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           />
           <CustomSelect options={ordenarOptions} label="Ordenar Por:" param />
         </div>
-        <div className="h-full w-full">{children}</div>
+        <div className="h-full w-full flex flex-col items-center justify-center gap-5">
+          {children}
+        </div>
       </div>
     </>
   );

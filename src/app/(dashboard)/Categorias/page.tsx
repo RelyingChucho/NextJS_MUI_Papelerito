@@ -46,7 +46,7 @@ interface PageProps {
 export default async function Page({ searchParams }: PageProps) {
   // Al ser searchParams un Promise, lo resolvemos:
   const resolvedSearchParams = await searchParams;
-  
+
   const baseURL = "http://192.168.100.241:3000/api/Categorias";
 
   // Construye los parámetros de búsqueda
@@ -84,18 +84,18 @@ export default async function Page({ searchParams }: PageProps) {
     }));
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center">
+    <>
       <VirtualizedTable<Categorias>
         columns={categoriasColumns}
         data={formattedCategorias}
       />
-      <div className="w-full flex flex-wrap justify-around items-center">
+      <div className="w-full flex flex-wrap justify-around items-center gap-5">
         <Total
           total={responseData.totalCategorias}
           label="Total de Categorias: "
         />
         <DeleteParams />
       </div>
-    </div>
+    </>
   );
 }
