@@ -94,7 +94,6 @@ export default async function Page({ searchParams }: PageProps) {
           total={responseData.totalCategorias}
           label="Total de Categorias: "
         />
-        <p>Aquí va la paginación 1 2 3 4 5 ... 1</p>
         <DeleteParams />
       </div>
     </div>
