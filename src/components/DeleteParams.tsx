@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import { Button} from "@mui/material";
+import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function DeleteParams() {
@@ -18,7 +18,7 @@ export default function DeleteParams() {
       variant="outlined"
       startIcon={<DeleteIcon />}
       onClick={handleDeleteParams}
-      className="rounded-full h-10 border-teal-600 text-white bg-teal-600 hover:scale-110 transition-transform duration-300"
+      className="rounded-full h-10 border-teal-600 text-white bg-teal-600 hover:scale-110 transition-transform duration-300 font-likeBaskerville"
     >
       Borrar Filtros
     </Button>
