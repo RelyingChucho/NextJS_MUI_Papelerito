@@ -85,7 +85,11 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      {status === 200 ? <Alerta /> : <Alerta />}
+      {status === 200 ? (
+        <Alerta severity="success" text="Categorias Encontradas" />
+      ) : (
+        <Alerta severity="error" text="Error al Buscar las Categorias" />
+      )}
       <VirtualizedTable<Categorias>
         columns={categoriasColumns}
         data={formattedCategorias}
