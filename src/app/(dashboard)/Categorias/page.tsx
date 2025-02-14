@@ -3,6 +3,7 @@ import DeleteParams from "@/components/DeleteParams";
 import Total from "@/components/Total";
 import { ColumnData, VirtualizedTable } from "@/components/VirtualizedTable";
 import { Metadata } from "next";
+import Alerta from "@/components/Alerta";
 
 export const metadata: Metadata = {
   title: "Categorias",
@@ -51,6 +52,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   let formattedCategorias: Categorias[] = [];
   let totalCategorias = 0;
+  let status = 200;
 
   try {
     const params = new URLSearchParams();
@@ -67,6 +69,7 @@ export default async function Page({ searchParams }: PageProps) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Error en la petición:", errorText);
+      status = response.status;
     } else {
       const responseData: CategoriasApiResponse = await response.json();
       formattedCategorias = responseData.categoriasFormateadas.map((item) => ({
@@ -82,6 +85,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
+      {status === 200 ? <Alerta /> : <Alerta />}
       <VirtualizedTable<Categorias>
         columns={categoriasColumns}
         data={formattedCategorias}
