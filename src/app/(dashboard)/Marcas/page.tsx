@@ -43,45 +43,50 @@ export default async function Page({ searchParams }: PageProps) {
 
   const baseURL = "http://192.168.100.241:3000/api/Marcas";
 
-  // Construye los parámetros de búsqueda
-  const params = new URLSearchParams();
-  if (resolvedSearchParams?.nombre) {
-    params.append("nombre", resolvedSearchParams.nombre as string);
+  let marcas: Marcas[] = [];
+  let totalMarcas = 0;
+
+  try {
+    // Construye los parámetros de búsqueda
+    const params = new URLSearchParams();
+    if (resolvedSearchParams?.nombre) {
+      params.append("nombre", resolvedSearchParams.nombre as string);
+    }
+    if (resolvedSearchParams?.ordenNombre) {
+      params.append("ordenNombre", resolvedSearchParams.ordenNombre as string);
+    }
+
+    // Arma la URL final
+    const url = params.toString() ? `${baseURL}?${params.toString()}` : baseURL;
+    console.log("Fetch URL:", url);
+
+    // Realiza el fetch con cache "no-store"
+    const response = await fetch(url, { cache: "no-store" });
+
+    // Verifica que la respuesta sea correcta
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error en la petición:", errorText);
+    } else {
+      // Interpreta la respuesta como CategoriasApiResponse
+      const responseData: MarcasApiResponse = await response.json();
+
+      // Transforma cada categoría para que se adapte a la interfaz Categorias
+      marcas = responseData.marcas.map((item) => ({
+        id: item.id,
+        nombre: item.nombre,
+      }));
+      totalMarcas = responseData.totalMarcas;
+    }
+  } catch (error) {
+    console.error("Error al obtener datos:", error);
   }
-  if (resolvedSearchParams?.ordenNombre) {
-    params.append("ordenNombre", resolvedSearchParams.ordenNombre as string);
-  }
-
-  // Arma la URL final
-  const url = params.toString() ? `${baseURL}?${params.toString()}` : baseURL;
-  console.log("Fetch URL:", url);
-
-  // Realiza el fetch con cache "no-store"
-  const response = await fetch(url, { cache: "no-store" });
-
-  // Verifica que la respuesta sea correcta
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Error en la petición: ${response.status} - ${errorText}`);
-  }
-
-  // Interpreta la respuesta como CategoriasApiResponse
-  const responseData: MarcasApiResponse = await response.json();
-
-  // Transforma cada categoría para que se adapte a la interfaz Categorias
-  const formattedCategorias: Marcas[] = responseData.marcas.map((item) => ({
-    id: item.id,
-    nombre: item.nombre,
-  }));
 
   return (
     <>
-      <VirtualizedTable<Marcas>
-        columns={MarcasColumns}
-        data={formattedCategorias}
-      />
+      <VirtualizedTable<Marcas> columns={MarcasColumns} data={marcas} />
       <div className="w-full flex flex-wrap justify-around items-center gap-5">
-        <Total total={responseData.totalMarcas} label="Total de Categorias: " />
+        <Total total={totalMarcas} label="Total de Categorias: " />
         <DeleteParams />
       </div>
     </>
