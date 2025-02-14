@@ -23,7 +23,7 @@ export const NAVIGATION: Navigation = [
     children: [
       {
         kind: "page",
-        segment: "../Registrar/Categoria",
+        segment: "Registrar",
         title: "Registrar Categoria",
         icon: <AddCategory />,
       },
@@ -43,7 +43,7 @@ export const NAVIGATION: Navigation = [
     children: [
       {
         kind: "page",
-        segment: "../Registrar/Marca",
+        segment: "Registrar",
         title: "Registrar Marca",
         icon: <AddBusinessRoundedIcon />,
       },
