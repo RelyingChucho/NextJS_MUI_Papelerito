@@ -3,11 +3,18 @@ import DeleteParams from "@/components/DeleteParams";
 import Total from "@/components/Total";
 import { ColumnData, VirtualizedTable } from "@/components/VirtualizedTable";
 import { Metadata } from "next";
+import Input from "@/components/Input";
+import CustomSelect, { Option } from "@/components/OrdenarPor";
 
 export const metadata: Metadata = {
   title: "Categorias",
   description: "En esta parte se Consultan las Categorias",
 };
+
+const ordenarOptions: Option[] = [
+  { value: "asc", label: "Nombre: A-Z", param: "ordenNombre" },
+  { value: "desc", label: "Nombre: Z-A", param: "ordenNombre" },
+];
 
 // La interfaz que usará tu tabla
 interface Marcas {
@@ -84,10 +91,22 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <VirtualizedTable<Marcas> columns={MarcasColumns} data={marcas} />
-      <div className="w-full flex flex-wrap justify-around items-center gap-5">
-        <Total total={totalMarcas} label="Total de Categorias: " />
-        <DeleteParams />
+      <div className="h-full w-full flex flex-col items-center justify-center gap-5">
+        <div className="w-full h-fit flex flex-row md:flex-wrap justify-evenly gap-5">
+          <Input
+            variant="outlined"
+            label="Nombre Marca"
+            className="w-64"
+            param
+            paramName="nombre"
+          />
+          <CustomSelect options={ordenarOptions} label="Ordenar Por:" param />
+        </div>
+        <VirtualizedTable<Marcas> columns={MarcasColumns} data={marcas} />
+        <div className="w-full flex flex-wrap justify-around items-center gap-5">
+          <Total total={totalMarcas} label="Total de Categorias: " />
+          <DeleteParams />
+        </div>
       </div>
     </>
   );
