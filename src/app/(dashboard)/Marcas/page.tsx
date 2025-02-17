@@ -5,6 +5,7 @@ import { ColumnData, VirtualizedTable } from "@/components/VirtualizedTable";
 import { Metadata } from "next";
 import Input from "@/components/Input";
 import CustomSelect, { Option } from "@/components/OrdenarPor";
+import Alerta from "@/components/Alerta";
 
 export const metadata: Metadata = {
   title: "Categorias",
@@ -52,6 +53,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   let marcas: Marcas[] = [];
   let totalMarcas = 0;
+  let status = 200;
 
   try {
     // Construye los parámetros de búsqueda
@@ -74,6 +76,7 @@ export default async function Page({ searchParams }: PageProps) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Error en la petición:", errorText);
+      status = response.status;
     } else {
       // Interpreta la respuesta como CategoriasApiResponse
       const responseData: MarcasApiResponse = await response.json();
@@ -102,6 +105,11 @@ export default async function Page({ searchParams }: PageProps) {
           />
           <CustomSelect options={ordenarOptions} label="Ordenar Por:" param />
         </div>
+        {status === 200 ? (
+          <Alerta severity="success" text="Marcas Encontradas" />
+        ) : (
+          <Alerta severity="error" text="Error al Buscar las Marcas" />
+        )}
         <VirtualizedTable<Marcas> columns={MarcasColumns} data={marcas} />
         <div className="w-full flex flex-wrap justify-around items-center gap-5">
           <Total total={totalMarcas} label="Total de Categorias: " />
